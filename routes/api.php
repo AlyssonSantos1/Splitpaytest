@@ -25,6 +25,7 @@ Route::post('/cadastro-item', [PrateleiraController::class, 'create'])->name('ca
 Route::get('/editar-item/{id}', [PrateleiraController::class, 'edit']);
 Route::put('/atualizar-item',[PrateleiraController::class, 'update'])->name('atualizar-item');
 Route::get('/excluir-item/{id}',[PrateleiraController::class, 'destroy']);
+Route::get('/mostrar-item/{id}', [PrateleiraController::class, 'show']);
 
 
 
