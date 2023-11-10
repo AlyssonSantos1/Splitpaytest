@@ -11,13 +11,13 @@ class PrateleiraController extends Controller
     public function getAll(Request $request)
     {
         $produtos = Produto::paginate(10);
-        return ($produtos);
+        return response()->json($produtos);
 
     }
 
     public function create (Request $request)
     {
-        $produto = Produto::create([
+        $produtos = Produto::create([
             'id' =>$request->id,
             'nome' =>$request->nome,
             'descricao' =>$request->descricao,
@@ -34,35 +34,27 @@ class PrateleiraController extends Controller
         $produtos = Produto::findorfail($id);
         $produtos->nome = $request ->nome;
         $produtos->tipo = $request ->tipo;
-        $produtos->preco = $requestinput->descricao;
-        $produtos->quantidade = $requestinput->quantidade;
+        $produtos->preco = $request->input->descricao;
+        $produtos->quantidade = $request->input->quantidade;
         $produtos->save();
 
         return response()->json($produtos);
     }
 
-    public function edit ($id, Request $request)
+    public function destroy ($id)
     {
-        return response()->json([
+        $produtos = Produto::findorfail($id);
+        $produtos->delete();
 
-        ]);
-    }
-
-    public function destroy (Request $request)
-    {
-        $produtos = Produto::findOrFail($id);
-            if( $produtos->delete() ){
-
-                return new Produto($produtos);
-        }
+        return response()->json($produtos);
     }
 
     public function show ($id)
     {
-        return response()->json([
-            $produtos = Produto::findOrFail( $id );
-            return new Produto( $produtos );
-        ]);
+        // return response()->json([
+        //     $produtos = Produto::findOrFail($id);
+        //     return ( $produtos );
+        // ]);
     }
 
 
