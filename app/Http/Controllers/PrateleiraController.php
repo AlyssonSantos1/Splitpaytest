@@ -12,42 +12,33 @@ class PrateleiraController extends Controller
     {
         $produtos = Produto::paginate(10);
         return ($produtos);
-        // return response()->json([
-        //     'id' => $request->foo,
-        //     'nome' => $request->foo,
-        //     'descricao' => $request->foo,
-        //     'tipo' => $request->foo,
-        //     'quanidade' => $request->foo
 
-        // ]);
     }
 
     public function create (Request $request)
     {
-        return response()->json([
-            Produto::create([
-            'id' => $request->foo,
-            'nome' => $request->foo,
-            'descricao' => $request->foo,
-            'tipo' => $request->foo,
-            ])
+        $produto = Produto::create([
+            'id' =>$request->id,
+            'nome' =>$request->nome,
+            'descricao' =>$request->descricao,
+            'preco' =>$request->preco,
+            'quantidade' =>$request->quantidade,
 
-        ]);
+         ]);
+
+        return response()->json($produtos);
     }
 
     public function update (Request $request)
     {
-        return response()->json([
-        $produtos = Produto::findOrFail( $request->id );
-        $produtos->nome = $request->input('nome');
-        $produtos->tipo = $request->input('tipo');
-        $produtos->descricao = $request->input('descricao');
-        $produtos->quantidade = $request->input('quantidade');
-        ]);
+        $produtos = Produto::findorfail($id);
+        $produtos->nome = $request ->nome;
+        $produtos->tipo = $request ->tipo;
+        $produtos->preco = $requestinput->descricao;
+        $produtos->quantidade = $requestinput->quantidade;
+        $produtos->save();
 
-        if( $produtos->save() ){
-            return new Produto($produtos);
-          }
+        return response()->json($produtos);
     }
 
     public function edit ($id, Request $request)
