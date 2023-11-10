@@ -17,6 +17,7 @@ class PrateleiraController extends Controller
 
     public function create (Request $request)
     {
+
         $produtos = Produto::create([
             'id' =>$request->id,
             'nome' =>$request->nome,
@@ -31,7 +32,6 @@ class PrateleiraController extends Controller
 
     public function update (Request $request)
     {
-
         $produtos = Produto::findorfail($request->id);
         $produtos->nome = $request ->nome;
         $produtos->tipo = $request ->tipo;
@@ -44,6 +44,22 @@ class PrateleiraController extends Controller
 
     public function destroy (Request $request)
     {
+        $produtos = Produto::findorfail($request->id);
+
+        if ($produtos->save()){
+            return response()->json ([
+                'status'=> 'sucesso',
+                'mensagem' => 'Produto Excluido com sucesso'
+            ], 200);
+
+        }
+
+        return response()->json([
+            'status'=> 'sucesso',
+            'mensagem' => 'Falha ao Deletar'
+        ], 400);
+
+
         $produtos = Produto::findorfail($request->id);
         $produtos->delete();
 
