@@ -31,7 +31,8 @@ class PrateleiraController extends Controller
 
     public function update (Request $request)
     {
-        $produtos = Produto::findorfail($id);
+
+        $produtos = Produto::findorfail($request->id);
         $produtos->nome = $request ->nome;
         $produtos->tipo = $request ->tipo;
         $produtos->preco = $request->input->descricao;
@@ -41,9 +42,9 @@ class PrateleiraController extends Controller
         return response()->json($produtos);
     }
 
-    public function destroy ($id)
+    public function destroy (Request $request)
     {
-        $produtos = Produto::findorfail($id);
+        $produtos = Produto::findorfail($request->id);
         $produtos->delete();
 
         return response()->json($produtos);
