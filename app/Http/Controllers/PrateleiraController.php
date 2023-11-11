@@ -66,12 +66,10 @@ class PrateleiraController extends Controller
         return response()->json($produtos);
     }
 
-    public function show ($id)
+    public function show (Request $request)
     {
-        // return response()->json([
-        //     $produtos = Produto::findOrFail($id);
-        //     return ( $produtos );
-        // ]);
+        $produtos = Produto::findorfail($request->id);
+        return response()->json($produtos);
     }
 
 
