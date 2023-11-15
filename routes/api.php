@@ -20,10 +20,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/', [PrateleiraController::class, 'getAll']);
-Route::get('/cadastro-item', [PrateleiraController::class, 'create']);
-Route::post('/cadastro-item', [PrateleiraController::class, 'create'])->name('cadastro-item');
-Route::get('/editar-item/{id}', [PrateleiraController::class, 'edit']);
-Route::put('/atualizar-item',[PrateleiraController::class, 'update'])->name('atualizar-item');
+Route::post('/cadastro-item', [PrateleiraController::class, 'create']);
+Route::put('/atualizar-item/{id}',[PrateleiraController::class, 'update']);
 Route::get('/excluir-item/{id}',[PrateleiraController::class, 'destroy']);
 Route::get('/mostrar-item/{id}', [PrateleiraController::class, 'show']);
 

@@ -17,17 +17,23 @@ class PrateleiraController extends Controller
 
     public function create (Request $request)
     {
+        $produtos = $request->produtos;
+        foreach($produtos as $cadaProduto){
 
-        $produtos = Produto::create([
-            'id' =>$request->id,
-            'nome' =>$request->nome,
-            'descricao' =>$request->descricao,
-            'preco' =>$request->preco,
-            'quantidade' =>$request->quantidade,
+        $cadaProduto = Produto::create([
+
+            'id' =>$request->input('id'),
+            'nome' =>$request->input('nome'),
+            'descricao' =>$request->input('descricao'),
+            'preco' =>$request->input('preco'),
+            'quantidade' =>$request->input('quantidade'),
+
 
          ]);
 
-        return response()->json($produtos);
+        }
+
+        return response()->json($cadaProduto['nome']);
     }
 
     public function update (Request $request)
