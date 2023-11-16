@@ -26,12 +26,6 @@ class PrateleiraController extends Controller
             'descricao' => $cadaProduto['descricao'],
             'preco' => $cadaProduto['preco'],
             'quantidade' => $cadaProduto['quantidade'],
-            // 'id' => $request->input['id'],
-            // 'nome' =>$request->input['nome'],
-            // 'descricao' =>$request->input['descricao'],
-            // 'preco' =>$request->input['preco'],
-            // 'quantidade' =>$request->input['quantidade'],
-
 
          ]);
 
@@ -40,35 +34,32 @@ class PrateleiraController extends Controller
         return response()->json($produtos);
     }
 
-    public function update (Request $request)
+    public function update (Request $request, int $id)
     {
-        $produtos = Produto::findOrfail($request->produtos->id);
-        $produtos->nome = $request->produto->nome;
-        $produtos->descricao = $request->produto->descricao;
-        $produtos->preco = $request->produto->preco;
-        $produtos->quantidade = $request->produto->quantidade;
+        $produtos = Produto::findOrFail($id);
+        $produtos->nome = $request->nome;
+        $produtos->descricao = $request->descricao;
+        $produtos->preco = $request->preco;
+        $produtos->quantidade = $request->quantidade;
         $produtos->save();
 
         return response()->json($produtos);
     }
 
-    public function destroy (Request $request)
+    public function destroy (Request $request, int $id)
     {
-        $produtos = Produto::findorfail($request->id);
-
-        if ($produtos->save()){
-            return response()->json ([
-                'status'=> 'sucesso',
-                'mensagem' => 'Produto Excluido com sucesso'
+        $produtos = Produto::findOrFail($id);
+        if ($produtos->delete()) {
+            return response()->json([
+                'status' => 'sucesso',
+                'mensagem' => 'Produto excluído com sucesso'
             ], 200);
-
         }
 
         return response()->json([
-            'status'=> 'sucesso',
-            'mensagem' => 'Falha ao Deletar'
+        'status' => 'erro',
+        'mensagem' => 'Falha ao deletar'
         ], 400);
-
 
         $produtos = Produto::findorfail($request->id);
         $produtos->delete();
