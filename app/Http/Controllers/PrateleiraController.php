@@ -11,7 +11,7 @@ class PrateleiraController extends Controller
     public function getAll(Request $request)
     {
         $produtos = Produto::paginate(10);
-        return response()->json($produtos);
+        return $produtos;
 
     }
 
@@ -61,10 +61,6 @@ class PrateleiraController extends Controller
         'mensagem' => 'Falha ao deletar'
         ], 400);
 
-        $produtos = Produto::findorfail($request->id);
-        $produtos->delete();
-
-        return response()->json($produtos);
     }
 
     public function show (Request $request)
