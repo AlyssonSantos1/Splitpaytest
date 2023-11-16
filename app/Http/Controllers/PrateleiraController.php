@@ -20,29 +20,33 @@ class PrateleiraController extends Controller
         $produtos = $request->produtos;
         foreach($produtos as $cadaProduto){
 
-        $cadaProduto = Produto::create([
+        Produto::create([
 
-            'id' =>$request->input('id'),
-            'nome' =>$request->input('nome'),
-            'descricao' =>$request->input('descricao'),
-            'preco' =>$request->input('preco'),
-            'quantidade' =>$request->input('quantidade'),
+            'nome' => $cadaProduto['nome'],
+            'descricao' => $cadaProduto['descricao'],
+            'preco' => $cadaProduto['preco'],
+            'quantidade' => $cadaProduto['quantidade'],
+            // 'id' => $request->input['id'],
+            // 'nome' =>$request->input['nome'],
+            // 'descricao' =>$request->input['descricao'],
+            // 'preco' =>$request->input['preco'],
+            // 'quantidade' =>$request->input['quantidade'],
 
 
          ]);
 
         }
 
-        return response()->json($cadaProduto['nome']);
+        return response()->json($produtos);
     }
 
     public function update (Request $request)
     {
-        $produtos = Produto::findorfail($request->id);
-        $produtos->nome = $request ->nome;
-        $produtos->tipo = $request ->tipo;
-        $produtos->preco = $request->input->descricao;
-        $produtos->quantidade = $request->input->quantidade;
+        $produtos = Produto::findOrfail($request->produtos->id);
+        $produtos->nome = $request->produto->nome;
+        $produtos->descricao = $request->produto->descricao;
+        $produtos->preco = $request->produto->preco;
+        $produtos->quantidade = $request->produto->quantidade;
         $produtos->save();
 
         return response()->json($produtos);
